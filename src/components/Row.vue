@@ -1,6 +1,11 @@
 <template>
 	<div class="grid grid-cols-5 gap-6">
-		<Box v-for="(box, index) in boxes" :key="box" :box="box" :index="index" />
+		<Box
+			v-for="(box, index) in boxes"
+			:key="box"
+			:index="index"
+			:box-number="index"
+		/>
 	</div>
 </template>
 
