@@ -1,5 +1,17 @@
+<script setup>
+import { onMounted } from 'vue';
+import Box from './Box.vue';
+defineProps({ boxes: { type: Object, default: null } });
+
+onMounted(() => {
+	const rowOne = document.querySelector('#rowOne');
+	// Focus first box on mount
+	rowOne.children[0].focus();
+});
+</script>
+
 <template>
-	<div class="grid grid-cols-5 gap-6">
+	<div id="rowOne" class="grid grid-cols-5 gap-6">
 		<Box
 			v-for="(box, index) in boxes"
 			:key="box"
@@ -8,9 +20,3 @@
 		/>
 	</div>
 </template>
-
-<script setup>
-import Box from './Box.vue';
-
-defineProps({ boxes: { type: Object, default: null } });
-</script>

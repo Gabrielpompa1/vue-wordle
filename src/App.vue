@@ -6,12 +6,19 @@
 
 <script setup>
 import { useWordleStore } from './stores/wordle';
-import { computed } from 'vue';
+import { computed, onMounted } from 'vue';
 import Row from './components/Row.vue';
 
 const wordleStore = useWordleStore();
 const rowOne = computed(() => wordleStore.rowOne);
 
+onMounted(() => {
+	// Answer check
+	// TODO - Add check condition for unfinished answers / only run the check if all boxes are full
+	document.addEventListener('keypress', (event) => {
+		if (event.key === 'Enter') wordleStore.checkAnswer();
+	});
+});
 </script>
 
 <style scoped></style>

@@ -13,14 +13,20 @@ export const useWordleStore = defineStore('wordle', {
 	}),
 	getters: {},
 	actions: {
-		setBoxValue(payload){
-			this.rowOne[payload.boxNumber].value = payload.value
+		setBoxValue(payload) {
+			if (payload.value === null) return;
+			payload.value.toUpperCase();
+			this.rowOne[payload.boxNumber].value = '';
+			this.rowOne[payload.boxNumber].value = payload.value;
 		},
-		checkAnswer(){
-			const joinBoxChars = this.rowOne.map((box) => box.value).join('').toUpperCase()
+		checkAnswer() {
+			const joinBoxChars = this.rowOne
+				.map((box) => box.value)
+				.join('')
+				.toUpperCase();
 
-			if(joinBoxChars === this.word) console.log('You win!')
-			else console.log("Try again")
-		}
+			if (joinBoxChars === this.word) console.log('You win!');
+			else console.log('Try again');
+		},
 	},
 });
