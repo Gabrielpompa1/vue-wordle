@@ -10,8 +10,14 @@ export const useWordleStore = defineStore('wordle', {
 			{ value: '' },
 			{ value: '' },
 		],
+		gameStatus: null,
 	}),
-	getters: {},
+	getters: {
+		winLoseMessage(state) {
+			if (state.gameStatus === 'win') return 'You win!';
+			if (state.gameStatus === 'lose') return 'You lose, try again!';
+		},
+	},
 	actions: {
 		setBoxValue(payload) {
 			if (payload.value === null) return;
@@ -20,13 +26,16 @@ export const useWordleStore = defineStore('wordle', {
 			this.rowOne[payload.boxNumber].value = payload.value;
 		},
 		checkAnswer() {
+			const checkBoxes = this.rowOne.every((box) => box.value !== '');
+			if (!checkBoxes) return;
+
 			const joinBoxChars = this.rowOne
 				.map((box) => box.value)
 				.join('')
 				.toUpperCase();
 
-			if (joinBoxChars === this.word) console.log('You win!');
-			else console.log('Try again');
+			if (joinBoxChars === this.word) this.gameStatus = 'win';
+			else this.gameStatus = 'lose';
 		},
 	},
 });
