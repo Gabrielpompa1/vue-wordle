@@ -4,11 +4,11 @@ export const useWordleStore = defineStore('wordle', {
 	state: () => ({
 		word: 'HELLO',
 		rowOne: [
-			{ value: '' },
-			{ value: '' },
-			{ value: '' },
-			{ value: '' },
-			{ value: '' },
+			{ value: '', correct: false, incorrect: false },
+			{ value: '', correct: false, incorrect: false },
+			{ value: '', correct: false, incorrect: false },
+			{ value: '', correct: false, incorrect: false },
+			{ value: '', correct: false, incorrect: false },
 		],
 		gameStatus: null,
 	}),
@@ -23,22 +23,18 @@ export const useWordleStore = defineStore('wordle', {
 	},
 	actions: {
 		setBoxValue(payload) {
-			if (payload.value === null) return;
+			console.log(payload)
 			payload.value.toUpperCase();
 			this.rowOne[payload.boxNumber].value = '';
-			this.rowOne[payload.boxNumber].value = payload.value;
+			this.rowOne[payload.boxNumber].value = payload.value.toUpperCase();
 		},
-		checkAnswer() {
-			const checkBoxes = this.rowOne.every((box) => box.value !== '');
-			if (!checkBoxes) return;
-
-			const joinBoxChars = this.rowOne
-				.map((box) => box.value)
-				.join('')
-				.toUpperCase();
-
-			if (joinBoxChars === this.word) this.gameStatus = 'win';
-			else this.gameStatus = 'lose';
+		checkAnswer(boxes) {
+			const word = this.word.split('')
+			this.rowOne = boxes.map((letter, index) => {
+				if (letter.value === word[index]) letter.correct = true
+				else letter.incorrect = true
+				return {...letter}
+			})
 		},
 	},
 });

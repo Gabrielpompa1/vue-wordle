@@ -9,12 +9,7 @@ const rowOne = computed(() => wordleStore.rowOne);
 const winLoseMessage = computed(() => wordleStore.winLoseMessage);
 const gameStatus = computed(() => wordleStore.gameStatus);
 
-onMounted(() => {
-	// Answer check
-	document.addEventListener('keypress', (event) => {
-		if (event.key === 'Enter') wordleStore.checkAnswer();
-	});
-});
+
 </script>
 
 <template>
