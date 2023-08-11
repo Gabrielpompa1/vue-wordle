@@ -24,12 +24,13 @@ onMounted(() => {
 			:key="box"
 			:index="index"
 			:box-number="index"
+			:box="box"
 		/>
 		<button
 			v-if="isRowOneComplete"
 			aria-label="Submit row answer"
 			class="absolute -right-24 h-20 w-20 text-green-400"
-			@click="checkAnswer"
+			@click="checkAnswer(boxes)"
 		>
 			<ArrowRightCircleIcon />
 		</button>
