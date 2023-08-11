@@ -17,6 +17,9 @@ export const useWordleStore = defineStore('wordle', {
 			if (state.gameStatus === 'win') return 'You win!';
 			if (state.gameStatus === 'lose') return 'You lose, try again!';
 		},
+		isRowOneComplete(state) {
+			return (Object.values(state.rowOne).every((box) => box.value !== ''))
+		}
 	},
 	actions: {
 		setBoxValue(payload) {
